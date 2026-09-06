@@ -1,0 +1,136 @@
+<programa> ::= <principal> 
+<programa> ::= <globales> <principal> 
+<programa> ::= <funciones> <principal>
+<programa> ::= <globales> <funciones> <principal>
+
+<principal> ::= <tipo_principal> 'principal' <bloque>
+
+<globales> ::= <declaracion_global> | <declaracion_global> <globales>
+<declaracion_global> ::=  --------------------- PENDIENTE ---------------------
+
+<funciones> ::= <funcion> | <funcion> <funciones>
+<funcion> ::= <tipo> <id> <parametros> <bloque> 
+<llamar_funcion> ::= <id> <argumentos>
+
+
+<parametros> ::= <parentesisR_izquierdo> <parentesisR_derecho>
+<parametros> ::= <parentesisR_izquierdo> <auxParametros> <parentesisR_derecho>
+<auxParametros> ::= <parametro> | <parametro> <coma> <auxParametros>
+<parametro> ::= <tipo> <id>
+
+<argumentos> ::= <parentesisR_izquierdo> <parentesisR_derecho>
+<argumentos> ::= <parentesisR_izquierdo> <auxArgumentos> <parentesisR_derecho>
+<auxArgumentos> ::= <expresion> | <expresion> <coma> <auxArgumentos>
+
+<expresion>::= <id> | <boolD> | <stringD> | <charD> | <numero_entero> | <numero_flotante> | <arreglo> | <funcion>
+
+<bloque> ::= <abrir_bloque> <lista_cosas> <cerrar_bloque>
+
+<lista_cosas> ::= <cosa> | <cosa> <lista_cosas>
+<cosa> ::= <creacion_variable> 
+            | <asignacion_variable> | <sentencia_if> | <sentencia_while> | <sentencia_for> 
+            | <sentencia_return> | <sentencia_break> | <llamar_funcion> <fin_expresion> 
+            | <incrementoV> | <fin_expresion> | <decrementoV> <fin_expresion> | <funcion_read> | <funcion_write>
+
+<creacion_variable> ::= <variable> <parametro> <fin_expresion> | <variable> <parametro> <asignacionV> <expresion> <fin_expresion> 
+<creacion_variable> ::= <variable> <elemento_arr> <id> <fin_expresion> | <variable> <elemento_arr> <id> <asignacionV> <arreglo> <fin_expresion> 
+
+<asignacion_variable> ::= <id> <asignacionV> <expresion> <fin_expresion>
+<asignacion_arreglo> ::= <acceso_arreglo> <asignacionV> <expresion
+
+<incrementoV> ::= <id> '++'
+<decrementoV> ::= <id> '--'
+
+<parentesisR_izquierdo> ::= 'є:' 
+<parentesisR_derecho> ::= ':э' 
+<parentesisC_izquierdo> ::= 'ʃ:'
+<parentesisC_derecho> ::= ':ʅ'
+<abrir_bloque> ::= '¿:'
+<cerrar_bloque> ::= ':?'
+<punto> ::= '.'
+<coma> ::= ','
+<punto_coma> ::= ';'
+
+<operando> ::= <id> | <numero_entero> | <numero_flotante> | <llamar_funcion>
+<literal_num> ::= <numero_entero> | <numero_flotante> 
+
+<operador_relacional> ::= '>' | '<' | '>=' | '<=' | '==' | '!='
+<operadorL_binario> ::= 'λ' | 'θ'
+<operacion_logica> ::= <condicion> <operadorL_binario> <condicion> | <negacion> <condicion>
+<negacion> ::= 'Σ'
+
+<fin_expresion> ::= '»'
+
+<comentario> ::= <comentario_s> | <comentario_multilinea>
+<comentario_s> ::= '|' <texto>
+<comentario_multilinea> ::= <comentarioM_izquierdo> <texto> <comentarioM_derecha>
+<comentarioM_izquierdo> ::= '¡'
+<comentarioM_derecha> ::= '!'
+
+<variable> ::= 'val'
+<asignacionV> ::= 'Ͱ'
+
+<condicion> ::= <expresion> | <comparacion> | <operacion_logica>
+
+<comparacion> ::= <expresion> <operador_relacional> <expresion>
+
+<sentencias> ::= <if> | <elif> | <else> | <while> | <for>
+<if> ::= 'if'
+<elif> ::= 'elif'
+<else> ::= 'else'
+<while> ::= 'while'
+<for> ::= 'for'
+<break> ::= 'break'
+<return> ::= 'return'
+
+<bloque_sentencias> ::= <parentesisC_izquierdo> <lista_sentencia> <parentesisC_derecho>
+<lista_sentencia> ::= <sentencias> | <sentencias> <lista_sentencia>
+
+<sentencia_if> ::= <if> <parentesisR_izquierdo> <condicion> <parentesisR_derecho> <bloque> <lista_elif> <sentencia_else>
+
+<lista_elif> ::= <sentencia_elif> <lista_elif> | ""
+<sentencia_elif> ::= <elif> <parentesisR_izquierdo> <condicion> <parentesisR_derecho> <bloque>
+
+<sentencia_else> ::= <else> <bloque> | ""
+
+<sentencia_while> ::= <while> <parentesisR_izquierdo> <condicion> <parentesisR_derecho> <bloque>
+
+<sentencia_for> ::= <for> <parentesisR_izquierdo> <asignacion_variable> <condicion> <punto_coma> <expresion_for_final> <parentesisR_derecho> <bloque>
+<expresion_for_final> ::= <id> <asignacionV> <expresion> | <incrementoV> | <decrementoV>
+
+<sentencia_return> ::= <return> <expresion> <fin_expresion> | <return> <fin_expresion>
+
+<sentencia_break> ::= <break> <fin_expresion>
+
+<funcion_read> ::= <read> <parentesisR_izquierdo> <id> <parentesisR_derecho> <fin_expresion>
+
+<funcion_write> ::= <write> <parentesisR_izquierdo> <expresion> <parentesisR_derecho> <fin_expresion>
+
+<write> ::= 'write'
+<read> ::= 'read'
+
+<arreglo> ::= <parentesisC_izquierdo> <elemento_lista> <parentesisC_derecho> | <parentesisC_izquierdo> <parentesisC_derecho>
+<acceso_arreglo> ::= <id> 
+<elemento_lista> ::= <elemento_arr> | <elemento_arr> <coma> <elemento_lista>
+<elemento_arr> ::= <numero_entero> | <numero_flotante>
+
+<tipo> ::= 'char' | 'int' | 'float' | 'bool' | 'string'
+<tipo_principal> ::= 'void'
+
+<id> ::= [_A-Za-z][_A-Za-z0-9]*
+<boolD> ::= 'true' | 'false'
+<stringD> ::= "[^"]*"
+<charD> ::= '[^']'
+
+<signo> ::= -|+
+<cero> ::= '0'
+<digito> ::= [0-9]
+<digitoN_Cero> ::= [1-9]
+<numero_entero> ::= <cero>
+<numero_entero> ::= <signo>? <digitoN_Cero> <digito>*
+<enteroPositivo> ::= <cero> | <digitoN_Cero> <digito>*
+
+<ceroF> ::= 0.0
+<numero_flotante> ::= <ceroF>
+<numero_flotante> ::= <signo>? <cero> <punto> <digito>* <digitoN_Cero> 
+<numero_flotante> ::= <signo>? <digitoN_Cero> <digito>* <punto> <digito>* <digitoN_Cero>
