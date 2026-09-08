@@ -1,7 +1,7 @@
 <programa> ::= <principal> 
-<programa> ::= <globales> <principal> 
-<programa> ::= <funciones> <principal>
-<programa> ::= <globales> <funciones> <principal>
+            | <globales> <principal> 
+            | <funciones> <principal>
+            | <globales> <funciones> <principal>
 
 <principal> ::= <tipo_principal> 'principal' <bloque>
 
@@ -12,13 +12,11 @@
 <funcion> ::= <tipo_retorno> <id> <parametros> <bloque> 
 <llamar_funcion> ::= <id> <argumentos>
 
-<parametros> ::= <parentesisR_izquierdo> <parentesisR_derecho>
-<parametros> ::= <parentesisR_izquierdo> <auxParametros> <parentesisR_derecho>
-<auxParametros> ::= <parametro> | <parametro> <coma> <auxParametros>
+<parametros> ::= <parentesisR_izquierdo> <parentesisR_derecho> | <parentesisR_izquierdo> <aux_parametros> <parentesisR_derecho>
+<aux_parametros> ::= <parametro> | <parametro> <coma> <aux_parametros>
 <parametro> ::= <tipo> <id>
 
-<argumentos> ::= <parentesisR_izquierdo> <parentesisR_derecho>
-<argumentos> ::= <parentesisR_izquierdo> <auxArgumentos> <parentesisR_derecho>
+<argumentos> ::= <parentesisR_izquierdo> <parentesisR_derecho> | <parentesisR_izquierdo> <auxArgumentos> <parentesisR_derecho>
 <auxArgumentos> ::= <expresion> | <expresion> <coma> <auxArgumentos>
 
 <expresion>::= <expresion_aritmetica> | <comparacion> | <operacion_logica> | <boolD> | <stringD> | <charD> | <arreglo> | <llamar_funcion>
@@ -34,24 +32,27 @@
 
 <expresion_potencia> ::= <expresion_potencia> <potencia> <base> | <base>
 
-<base> ::= <id> | <numero_entero> | <numero_flotante> | <llamar_funcion> | <acceso_arreglo> | <parentesisR_izquierdo> <expresion_aritmetica> <parentesisR_derecho>
+<base> ::= <id> | <id> '++' | <id> '--' | <numero_entero> | <numero_flotante> | <llamar_funcion> | <acceso_arreglo> | <parentesisR_izquierdo> <expresion_aritmetica> <parentesisR_derecho>
 
 <condicion> ::= <expresion>
 
 <comparacion> ::= <parentesisC_izquierdo> <expresion> <parentesisC_derecho> <operador_relacional> <parentesisC_izquierdo> <expresion> <parentesisC_derecho>
 
-<operacion_logica> ::= <parentesisR_izquierdo> <condicion> <parentesisR_derecho> <operadorL_binario> <parentesisR_izquierdo> <condicion> <parentesisR_derecho> | <negacion> <parentesisR_izquierdo> <condicion> <parentesisR_derecho>
+<operacion_logica> ::= <parentesisR_izquierdo> <condicion> <parentesisR_derecho> <operadorL_binario> <parentesisR_izquierdo> <condicion> <parentesisR_derecho> 
+                        | <negacion> <parentesisR_izquierdo> <condicion> <parentesisR_derecho>
 
 <bloque> ::= <abrir_bloque> <lista_cosas> <cerrar_bloque>
 
 <lista_cosas> ::= <cosa> | <cosa> <lista_cosas>
 <cosa> ::= <creacion_variable> 
             | <asignacion_variable> | <asignacion_arreglo> | <sentencia_if> | <sentencia_while> | <sentencia_for> 
-            | <sentencia_return> | <sentencia_break> | <llamar_funcion> <fin_expresion> | <incrementoV> 
+            | <llamar_funcion> <fin_expresion> | <incrementoV> 
             | <decrementoV> | <funcion_read> | <funcion_write> | <comentario>
 
-<creacion_variable> ::= <variable> <parametro> <fin_expresion> | <variable> <parametro> <asignacionV> <expresion> <fin_expresion> 
-<creacion_variable> ::= <variable> <tipo_arr> <id> <fin_expresion> | <variable> <tipo_arr> <id> <asignacionV> <arreglo> <fin_expresion> 
+<creacion_variable> ::= <variable> <parametro> <fin_expresion> 
+                        | <variable> <parametro> <asignacionV> <expresion> <fin_expresion> 
+                        | <variable> <tipo_arr> <id> <parentesisC_izquierdo> <entero_positivo> <parentesisC_derecho> <fin_expresion> 
+                        | <variable> <tipo_arr> <id> <asignacionV> <arreglo> <fin_expresion> 
 
 <asignacion_variable> ::= <id> <asignacionV> <expresion> <fin_expresion>
 <asignacion_arreglo> ::= <acceso_arreglo> <asignacionV> <expresion> <fin_expresion>
@@ -92,11 +93,9 @@
 <write> ::= 'write'
 <read> ::= 'read'
 
-PREGUNTAR PROFE SOBRE PARENTESIS CUADRADOS CAMBIARLO A LLAVE POR ASIGNACION DE ARRELO?
-
-<arreglo> ::= <parentesisC_izquierdo> <elemento_lista> <parentesisC_derecho> | <parentesisC_izquierdo> <parentesisC_derecho>
-<acceso_arreglo> ::= <id> <parentesisC_izquierdo> <numero_entero> <parentesisC_derecho>
-<elemento_lista> ::= <elemento_arr> | <elemento_arr> <coma> <elemento_lista>
+<arreglo> ::= <abrir_bloque> <elemento_lista> <cerrar_bloque> | <abrir_bloque> <cerrar_bloque>
+<acceso_arreglo> ::= <id> <parentesisC_izquierdo> <expresion> <parentesisC_derecho>  
+<elemento_lista> ::= <elemento_arr> | <elemento_arr> <coma> <elemento_lista> 
 <elemento_arr> ::= <numero_entero> | <numero_flotante>
 
 <tipo> ::= <tipo_retorno> | 'string'
@@ -120,21 +119,21 @@ PREGUNTAR PROFE SOBRE PARENTESIS CUADRADOS CAMBIARLO A LLAVE POR ASIGNACION DE A
 <id> ::= [_A-Za-z][_A-Za-z0-9]*
 <boolD> ::= 'true' | 'false'
 <stringD> ::= "[^"]*"
-<charD> ::= '[^']'
+<charD> ::= '[^|!¡']'
 
 <signo> ::= '-'|'+'
 <cero> ::= '0'
 <digito> ::= [0-9]
 <digitoN_Cero> ::= [1-9]
-<numero_entero> ::= <cero>
-<numero_entero> ::= <signo>? <digitoN_Cero> <digito>*
-<enteroPositivo> ::= <cero> | <digitoN_Cero> <digito>*
+<numero_entero> ::= <cero> | <signo>? <digitoN_Cero> <digito>*
+<entero_positivo> ::= <cero> | <digitoN_Cero> <digito>*
 
 <ceroF> ::= '0.0'
-<numero_flotante> ::= <ceroF>
-<numero_flotante> ::= <signo>? <cero> <punto> <digito>* <digitoN_Cero> 
-<numero_flotante> ::= <signo>? <digitoN_Cero> <digito>* <punto> <digito>* <digitoN_Cero>
-
+<numero_flotante> ::= <ceroF> 
+                    | <signo>? <cero> <punto> <digito>* <digitoN_Cero> 
+                    | <signo>? <digitoN_Cero> <digito>* <punto> <cero>
+                    | <signo>? <digitoN_Cero> <digito>* <punto> <digito>* <digitoN_Cero> 
+                    
 <parentesisR_izquierdo> ::= 'є:' 
 <parentesisR_derecho> ::= ':э' 
 <parentesisC_izquierdo> ::= 'ʃ:'
@@ -149,8 +148,8 @@ PREGUNTAR PROFE SOBRE PARENTESIS CUADRADOS CAMBIARLO A LLAVE POR ASIGNACION DE A
 <multiplicacion> ::= '*'
 <division_decimal> ::= '/'
 <division_entera> ::= '//'
-<modulo> ::= '%' 
-<potencia> ::= '^'
+<modulo> ::= 'mod' 
+<potencia> ::= 'pot'
 
 <operador_relacional> ::= '>' | '<' | '>=' | '<=' | '==' | '!='
 <operadorL_binario> ::= 'λ' | 'θ'
