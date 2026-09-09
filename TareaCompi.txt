@@ -46,7 +46,7 @@
 <lista_cosas> ::= <cosa> | <cosa> <lista_cosas>
 <cosa> ::= <creacion_variable> 
             | <asignacion_variable> | <asignacion_arreglo> | <sentencia_if> | <sentencia_while> | <sentencia_for> 
-            | <llamar_funcion> <fin_expresion> | <incrementoV> 
+            | <llamar_funcion> <fin_expresion> | <incrementoV> | <sentencia_break> | <sentencia_return>
             | <decrementoV> | <funcion_read> | <funcion_write> | <comentario>
 
 <creacion_variable> ::= <variable> <parametro> <fin_expresion> 
